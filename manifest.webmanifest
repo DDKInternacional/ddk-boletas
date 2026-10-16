@@ -1,7 +1,7 @@
 {
-  "name": "DDK Boleta de Control Vehicular",
+  "name": "DDK Boletas de Seguridad e Incidencias",
   "short_name": "Boletas DDK",
-  "description": "Boleta de control vehicular de DDK Internacional Seguridad",
+  "description": "Boletas de control vehicular e incidencias (mascotas, ruido, áreas comunes, personas y accesos) de DDK Internacional Seguridad",
   "lang": "es",
   "start_url": "./",
   "scope": "./",

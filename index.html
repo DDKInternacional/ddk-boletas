@@ -11,7 +11,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<title>DDK | Boleta de Control Vehicular</title>
+<title>DDK | Boletas de Seguridad e Incidencias</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#edf1f5;color:#18283c;font:16px system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
@@ -40,6 +40,15 @@ textarea{min-height:78px;resize:vertical}
 .radios{display:grid;gap:8px}
 .option{border:1px solid #d5dde6;border-radius:10px;padding:12px;display:flex;gap:10px;align-items:center;font-weight:500;margin:0}
 .option input{width:auto;accent-color:#0b5f9d}
+.types{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.type{border:2px solid #d5dde6;border-radius:12px;background:#fff;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;font:inherit;color:#18283c}
+.type .ic{font-size:26px;line-height:1}
+.type .nm{font-size:13px;font-weight:750;text-align:center;line-height:1.2}
+.type.on{border-color:#102d50;background:#eef4fb;box-shadow:0 0 0 2px #fbd31e inset}
+.typebox{background:#eef4fb;border:1px solid #c7d7ea;border-radius:12px;padding:12px 14px;margin:8px 0;font-size:13px;line-height:1.5}
+.typebox b{color:#102d50}
+.sevs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sevs .option{justify-content:center;padding:10px 4px;font-size:13px;gap:5px;white-space:nowrap}
 .photos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .photo{border:2px dashed #b9c8d7;border-radius:12px;min-height:150px;text-align:center;padding:10px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
 .photo .cam{font-size:28px}
@@ -67,9 +76,9 @@ textarea{min-height:78px;resize:vertical}
 <main class="app">
   <header class="head">
     <button class="gear" id="openSettings" type="button" aria-label="Configuración">⚙️</button>
-    <img src="data:image/png;base64,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" alt="Logo DDK">
+    <img src="data:image/png;base64,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" alt="DDK">
     <div class="brand">DDK INTERNACIONAL SEGURIDAD</div>
-    <div class="heading">BOLETA DE CONTROL VEHICULAR</div>
+    <div class="heading" id="heading">BOLETAS DE SEGURIDAD E INCIDENCIAS</div>
     <div class="sub">Su ALIANZA más segura</div>
   </header>
 
@@ -83,6 +92,16 @@ textarea{min-height:78px;resize:vertical}
   </div>
 
   <form id="form" autocomplete="off">
+    <div class="field">
+      <label>Tipo de boleta</label>
+      <div class="types" id="types"></div>
+    </div>
+    <div class="field">
+      <label for="subtype">Situación reportada</label>
+      <select id="subtype"></select>
+      <div class="typebox" id="typeHelp"></div>
+    </div>
+
     <div class="field">
       <label for="site">Puesto de seguridad</label>
       <select id="site">
@@ -99,21 +118,51 @@ textarea{min-height:78px;resize:vertical}
       <div class="field"><label for="date">Fecha</label><input id="date" type="date" required></div>
       <div class="field"><label for="time">Hora</label><input id="time" type="time" required></div>
     </div>
-    <div class="field"><label for="plate">Placa del vehículo</label><input id="plate" placeholder="Ej. ABC123" required style="text-transform:uppercase"></div>
-    <div class="two">
-      <div class="field"><label for="make">Marca / modelo</label><input id="make" placeholder="Toyota RAV4"></div>
-      <div class="field"><label for="color">Color</label><input id="color" placeholder="Blanco"></div>
-    </div>
-    <div class="field"><label for="place">Ubicación / estacionamiento</label><input id="place" placeholder="Sótano A, espacio 24" required></div>
-    <div class="field">
-      <label for="phone">Número de celular del cliente</label>
-      <div class="phone">
-        <input id="cc" value="+506" type="tel" inputmode="tel" maxlength="5" aria-label="Código de país">
-        <input id="phone" type="tel" inputmode="numeric" placeholder="8888-8888" aria-label="Número de celular del cliente">
+
+    <!-- Campos de control vehicular -->
+    <div data-block="vehicle">
+      <div class="field"><label for="plate">Placa del vehículo</label><input id="plate" placeholder="Ej. ABC123" style="text-transform:uppercase"></div>
+      <div class="two">
+        <div class="field"><label for="make">Marca / modelo</label><input id="make" placeholder="Toyota RAV4"></div>
+        <div class="field"><label for="color">Color</label><input id="color" placeholder="Blanco"></div>
       </div>
-      <p class="note">La boleta se enviará por WhatsApp directamente a este número. Si se deja vacío, el oficial elegirá el chat manualmente.</p>
     </div>
-    <div class="field">
+
+    <div class="field"><label for="place" id="placeLbl">Ubicación / estacionamiento</label><input id="place" placeholder="Sótano A, espacio 24" required></div>
+
+    <!-- Campos de mascotas -->
+    <div data-block="pet">
+      <div class="two">
+        <div class="field"><label for="petKind">Tipo de mascota</label>
+          <select id="petKind"><option>Perro</option><option>Gato</option><option>Ave</option><option>Otra mascota</option></select></div>
+        <div class="field"><label for="petDesc">Raza / tamaño / color</label><input id="petDesc" placeholder="Labrador grande, café"></div>
+      </div>
+      <div class="field"><label for="petOwner">¿Se identificó al dueño?</label>
+        <select id="petOwner"><option>No se identificó al dueño</option><option>Sí, dueño identificado</option><option>Mascota sin dueño conocido (callejera)</option></select></div>
+    </div>
+
+    <!-- Campos de ruido -->
+    <div data-block="noise">
+      <div class="two">
+        <div class="field"><label for="noiseSince">Hora aprox. de inicio</label><input id="noiseSince" type="time"></div>
+        <div class="field"><label for="noiseCount">Aviso</label>
+          <select id="noiseCount"><option>Primer aviso</option><option>Segundo aviso</option><option>Reincidente (3 o más)</option></select></div>
+      </div>
+      <div class="field"><label for="noisePeople">Personas aproximadas en el lugar</label><input id="noisePeople" type="number" min="0" inputmode="numeric" placeholder="Ej. 15"></div>
+    </div>
+
+    <!-- Campos de personas / accesos -->
+    <div data-block="person">
+      <div class="two">
+        <div class="field"><label for="personCount">Cantidad de personas</label><input id="personCount" type="number" min="1" inputmode="numeric" placeholder="1"></div>
+        <div class="field"><label for="personId">Identificación</label>
+          <select id="personId"><option>No se identificó</option><option>Se identificó con cédula</option><option>Se negó a identificarse</option><option>Se retiró del lugar</option></select></div>
+      </div>
+      <div class="field"><label for="personDesc">Descripción (vestimenta, señas, vehículo)</label><input id="personDesc" placeholder="Hombre, camisa roja, gorra negra"></div>
+    </div>
+
+    <!-- Estado del vehículo (solo control vehicular) -->
+    <div class="field" data-block="vehicle">
       <label>Estado del vehículo</label>
       <div class="radios">
         <label class="option"><input type="radio" name="status" value="Sin anomalías" checked>✅ Sin anomalías</label>
@@ -123,14 +172,52 @@ textarea{min-height:78px;resize:vertical}
         <label class="option"><input type="radio" name="status" value="Otra anomalía">Otra anomalía</label>
       </div>
     </div>
-    <div class="field"><label for="detail">Observaciones</label><textarea id="detail" placeholder="Describa los daños o novedades, si corresponde"></textarea></div>
+
+    <!-- Gravedad (incidencias) -->
+    <div class="field" data-block="sev">
+      <label>Gravedad de la incidencia</label>
+      <div class="sevs">
+        <label class="option"><input type="radio" name="sev" value="Leve" checked>🟢 Leve</label>
+        <label class="option"><input type="radio" name="sev" value="Moderada">🟡 Moderada</label>
+        <label class="option"><input type="radio" name="sev" value="Grave">🔴 Grave</label>
+      </div>
+    </div>
+
+    <!-- Acción tomada (incidencias) -->
+    <div class="field" data-block="action">
+      <label for="action">Acción tomada por el oficial</label>
+      <select id="action">
+        <option>Se hizo el llamado de atención en el lugar</option>
+        <option>Se notificó al residente / propietario</option>
+        <option>Se notificó a la administración</option>
+        <option>Se notificó a la jefatura DDK</option>
+        <option>Se llamó al 9-1-1</option>
+        <option>Se llamó a la Policía Municipal</option>
+        <option>Se retiró a la persona / se controló la situación</option>
+        <option>Solo se registra la novedad, sin contacto</option>
+        <option>Otra acción (indicar en observaciones)</option>
+      </select>
+    </div>
+
+    <div class="field"><label for="who" id="whoLbl">Nombre del cliente / residente involucrado (opcional)</label><input id="who" placeholder="Nombre, casa o filial"></div>
+
+    <div class="field">
+      <label for="phone" id="phoneLbl">Número de celular del cliente</label>
+      <div class="phone">
+        <input id="cc" value="+506" type="tel" inputmode="tel" maxlength="5" aria-label="Código de país">
+        <input id="phone" type="tel" inputmode="numeric" placeholder="8888-8888" aria-label="Número de celular">
+      </div>
+      <p class="note">La boleta se enviará por WhatsApp directamente a este número. Si se deja vacío, el oficial elegirá el chat manualmente.</p>
+    </div>
+
+    <div class="field"><label for="detail">Observaciones</label><textarea id="detail" placeholder="Describa lo ocurrido, los daños o novedades, si corresponde"></textarea></div>
     <div class="field">
       <label>Evidencia fotográfica (máximo 2)</label>
       <div class="photos">
-        <div class="photo"><div class="cam">📷</div><strong>Foto 1</strong><small>Vista general</small><img id="img1" class="hidden" alt="Vista previa foto 1"><label for="photo1">Tomar / elegir foto</label><input id="photo1" type="file" accept="image/*" capture="environment"></div>
-        <div class="photo"><div class="cam">📷</div><strong>Foto 2</strong><small>Detalle del daño</small><img id="img2" class="hidden" alt="Vista previa foto 2"><label for="photo2">Tomar / elegir foto</label><input id="photo2" type="file" accept="image/*" capture="environment"></div>
+        <div class="photo"><div class="cam">📷</div><strong>Foto 1</strong><small id="ph1Lbl">Vista general</small><img id="img1" class="hidden" alt="Vista previa foto 1"><label for="photo1">Tomar / elegir foto</label><input id="photo1" type="file" accept="image/*" capture="environment"></div>
+        <div class="photo"><div class="cam">📷</div><strong>Foto 2</strong><small id="ph2Lbl">Detalle del daño</small><img id="img2" class="hidden" alt="Vista previa foto 2"><label for="photo2">Tomar / elegir foto</label><input id="photo2" type="file" accept="image/*" capture="environment"></div>
       </div>
-      <p class="note">Si se reportan daños, adjunte ambas fotografías.</p>
+      <p class="note" id="photoNote">Si se reportan daños, adjunte ambas fotografías.</p>
     </div>
     <div class="field"><label for="guard">Nombre del oficial</label><input id="guard" placeholder="Nombre completo" required></div>
     <button class="btn" type="submit">📋 Generar boleta</button>
@@ -182,7 +269,7 @@ textarea{min-height:78px;resize:vertical}
 
 <script>
 const $=id=>document.getElementById(id);
-const TZ='America/Costa_Rica', PIN='2026', K={cfg:'ddk_boleta_cfg_v2',hist:'ddk_boleta_hist_v2'};
+const TZ='America/Costa_Rica', PIN='2026', K={cfg:'ddk_boleta_cfg_v2',hist:'ddk_boleta_hist_v2',type:'ddk_boleta_type_v1'};
 let storageOK=true;
 function sget(k,def){try{const v=localStorage.getItem(k);return v===null?def:JSON.parse(v)}catch(e){storageOK=false;return def}}
 function sset(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){storageOK=false;return false}}
@@ -191,6 +278,57 @@ let cfg=sget(K.cfg,{letter:'',name:'',last:0,guard:''});
 let currentSerial=null, report='', photoFiles=[null,null], clientPhone='', clientPhoneText='';
 const pad=n=>String(n).padStart(4,'0');
 const serialText=n=>(cfg.letter||'?')+'-'+pad(n);
+
+// ===== Tipos de boleta =====
+// blocks: grupos de campos que se muestran. place/who/phone: etiquetas según el tipo. ph: textos de las dos fotos.
+const TYPES={
+  vehicular:{icon:'🚘',name:'Control vehicular',title:'BOLETA DE CONTROL VEHICULAR',blocks:['vehicle'],
+    help:'Inspección del estado del vehículo o situaciones con vehículos dentro del puesto. La placa es obligatoria.',
+    place:'Ubicación / estacionamiento',placeHint:'Sótano A, espacio 24',who:'Nombre del cliente / propietario del vehículo (opcional)',phone:'Número de celular del cliente',
+    ph:['Vista general','Detalle del daño'],photoNote:'Si se reportan daños, adjunte ambas fotografías.',
+    sub:['Inspección / estado del vehículo','Mal estacionado o en zona prohibida','Estacionado en espacio para discapacitados sin permiso','Bloqueo de acceso, rampa o salida de emergencia','Vehículo abandonado o sin movimiento por varios días','Conducción peligrosa / exceso de velocidad','Alarma activada sin atender','Vehículo con vidrios abajo o puertas abiertas','Otra situación vehicular']},
+  mascotas:{icon:'🐾',name:'Mascotas',title:'BOLETA DE INCIDENCIA · MASCOTAS',blocks:['pet','sev','action'],
+    help:'Mascotas que generan molestias, riesgo o que están sueltas en áreas comunes del condominio o centro comercial.',
+    place:'Ubicación (casa, filial, local o área común)',placeHint:'Casa 24, Torre B / Parque infantil',who:'Nombre del residente / dueño de la mascota (opcional)',phone:'Número de celular del residente / dueño',
+    ph:['Mascota','Lugar o daño'],photoNote:'Adjunte al menos una fotografía de la mascota o del lugar.',
+    sub:['Mascota ladrando de forma persistente','Mascota suelta sin dueño','Mascota sin correa en áreas comunes','Heces no recogidas por el dueño','Mascota agresiva o ataque a persona / mascota','Mascota perdida o encontrada','Mascota en área no permitida (piscina, gimnasio, local)','Otra situación con mascota']},
+  ruido:{icon:'🔊',name:'Ruido y convivencia',title:'BOLETA DE INCIDENCIA · RUIDO Y CONVIVENCIA',blocks:['noise','sev','action'],
+    help:'Música, fiestas, gritos o trabajos ruidosos que alteran la tranquilidad, especialmente en horas de descanso.',
+    place:'Ubicación de origen (casa, filial o local)',placeHint:'Casa 12, Etapa 2',who:'Nombre del residente / responsable (opcional)',phone:'Número de celular del residente / responsable',
+    ph:['Lugar o fuente del ruido','Evidencia adicional'],photoNote:'Las fotografías son opcionales; tome una del lugar si es seguro hacerlo.',
+    sub:['Música a alto volumen','Fiesta o reunión a altas horas de la noche','Ruido de construcción o remodelación fuera de horario','Gritos, riña o alteración del orden','Uso de pirotecnia o pólvora','Vehículo con música a alto volumen','Otra molestia por ruido']},
+  areas:{icon:'🏢',name:'Áreas comunes y propiedad',title:'BOLETA DE INCIDENCIA · ÁREAS COMUNES',blocks:['sev','action'],
+    help:'Daños, mal uso o emergencias en áreas comunes, mobiliario e instalaciones del condominio o centro comercial.',
+    place:'Ubicación (área común, piso o local)',placeHint:'Piscina / Pasillo nivel 2 / Local 14',who:'Nombre del residente / responsable (opcional)',phone:'Número de celular del residente / responsable',
+    ph:['Vista general','Detalle del daño'],photoNote:'Si hay daños, adjunte ambas fotografías.',
+    sub:['Daño a áreas comunes o mobiliario','Basura fuera de horario o del lugar asignado','Uso de áreas comunes fuera de horario (piscina, gimnasio, salón)','Fuga de agua, gas o falla eléctrica','Objetos obstruyendo pasillos o salidas de emergencia','Grafiti o vandalismo','Portón, puerta o barrera dañada','Iluminación o cámara dañada','Otra situación en áreas comunes']},
+  personas:{icon:'🚶',name:'Personas y accesos',title:'BOLETA DE INCIDENCIA · PERSONAS Y ACCESOS',blocks:['person','sev','action'],
+    help:'Personas sospechosas, visitantes sin autorización, vendedores o cualquier situación en los accesos del puesto.',
+    place:'Ubicación (acceso, área o local)',placeHint:'Caseta principal / Parqueo visitantes',who:'Nombre de la persona o del residente que la recibe (opcional)',phone:'Número de celular del residente / involucrado',
+    ph:['Persona o vehículo','Lugar'],photoNote:'Fotografíe solo si es seguro hacerlo; no confronte a la persona.',
+    sub:['Persona sospechosa o merodeando','Visitante no autorizado / sin registro','Vendedor ambulante o reparto de volantes','Intento de ingreso forzado','Menor sin supervisión en áreas comunes','Trabajador sin identificación o fuera de horario','Persona en estado de ebriedad o bajo sustancias','Otra situación de acceso']},
+  otra:{icon:'📝',name:'Otra incidencia',title:'BOLETA DE INCIDENCIA GENERAL',blocks:['sev','action'],
+    help:'Cualquier novedad que no encaje en las otras categorías. Describa claramente lo ocurrido en las observaciones.',
+    place:'Ubicación',placeHint:'Describa el lugar exacto',who:'Nombre del cliente / residente involucrado (opcional)',phone:'Número de celular del cliente / residente',
+    ph:['Vista general','Detalle'],photoNote:'Adjunte fotografías si ayudan a documentar la novedad.',
+    sub:['Emergencia médica','Incendio, humo u olor a gas','Accidente en áreas comunes','Hallazgo de objeto perdido','Queja o reclamo de residente / cliente','Entrega de paquete o correspondencia con novedad','Otra novedad']}
+};
+let type=sget(K.type,'vehicular'); if(!TYPES[type])type='vehicular';
+$('types').innerHTML=Object.entries(TYPES).map(([k,t])=>`<button class="type" type="button" data-t="${k}"><span class="ic">${t.icon}</span><span class="nm">${t.name}</span></button>`).join('');
+$('types').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;setType(b.dataset.t)};
+function setType(k){
+  type=k; sset(K.type,k); const t=TYPES[k];
+  document.querySelectorAll('.type').forEach(b=>b.classList.toggle('on',b.dataset.t===k));
+  $('subtype').innerHTML=t.sub.map(s=>`<option>${s}</option>`).join('');
+  $('typeHelp').innerHTML=`<b>${t.icon} ${t.name}</b><br>${t.help}`;
+  document.querySelectorAll('[data-block]').forEach(el=>el.classList.toggle('hidden',!t.blocks.includes(el.dataset.block)));
+  $('plate').required=(k==='vehicular');
+  $('heading').textContent=t.title;
+  $('placeLbl').textContent=t.place; $('place').placeholder=t.placeHint;
+  $('whoLbl').textContent=t.who; $('phoneLbl').textContent=t.phone;
+  $('ph1Lbl').textContent=t.ph[0]; $('ph2Lbl').textContent=t.ph[1]; $('photoNote').textContent=t.photoNote;
+}
+setType(type);
 
 // Teléfono del cliente (WhatsApp)
 const onlyDigits=s=>String(s||'').replace(/\D/g,'');
@@ -244,39 +382,69 @@ async function compress(file){
   img.dataset.url=URL.createObjectURL(c); img.src=img.dataset.url; img.classList.remove('hidden');
 })});
 const photos=()=>photoFiles.filter(Boolean);
-function namedPhotos(){const tag=serialText(currentSerial)+'_'+$('plate').value.toUpperCase().replace(/\W+/g,'');return photos().map((f,i)=>new File([f],`DDK_${tag}_${i+1}.jpg`,{type:'image/jpeg'}))}
+const plateTxt=()=>$('plate').value.toUpperCase().trim();
+// Referencia corta de la boleta: placa en vehicular, situación en el resto
+const refText=()=>type==='vehicular'?plateTxt():$('subtype').value;
+function namedPhotos(){const tag=serialText(currentSerial)+'_'+(type==='vehicular'?plateTxt().replace(/\W+/g,''):type);return photos().map((f,i)=>new File([f],`DDK_${tag}_${i+1}.jpg`,{type:'image/jpeg'}))}
+
+const val=id=>$(id).value.trim();
+const radio=n=>(document.querySelector(`[name=${n}]:checked`)||{}).value||'';
+function buildReport(){
+  const t=TYPES[type], L=[];
+  L.push(`🟨 *DDK INTERNACIONAL SEGURIDAD*`,`${t.icon} *${t.title}*`,`🔢 *Boleta N.º ${serialText(currentSerial)}*`,'');
+  L.push(`📍 Puesto: ${$('site').value}`,`📅 Fecha: ${fmtDate($('date').value)}`,`🕒 Hora: ${$('time').value}`);
+  L.push(`🏷️ Situación: ${$('subtype').value}`);
+  if(type==='vehicular'){
+    const status=radio('status');
+    L.push(`🚗 Placa: ${plateTxt()}`,`🚙 Marca / modelo: ${val('make')||'No indicado'}`,`🎨 Color: ${val('color')||'No indicado'}`,`🅿️ Ubicación: ${val('place')}`);
+    if(val('who'))L.push(`👤 Cliente: ${val('who')}`);
+    L.push(`📞 Celular del cliente: ${clientPhoneText||'No indicado'}`,`${status==='Sin anomalías'?'✅':'⚠️'} Estado: ${status}`);
+  }else{
+    L.push(`📌 Ubicación: ${val('place')}`);
+    if(type==='mascotas'){L.push(`🐾 Mascota: ${$('petKind').value}${val('petDesc')?' · '+val('petDesc'):''}`,`🧍 Dueño: ${$('petOwner').value}`)}
+    if(type==='ruido'){if(val('noiseSince'))L.push(`⏰ Inicio aprox.: ${val('noiseSince')}`);L.push(`🔁 Aviso: ${$('noiseCount').value}`);if(val('noisePeople'))L.push(`👥 Personas aprox.: ${val('noisePeople')}`)}
+    if(type==='personas'){L.push(`👥 Personas: ${val('personCount')||'1'}`,`🪪 Identificación: ${$('personId').value}`);if(val('personDesc'))L.push(`🔎 Descripción: ${val('personDesc')}`)}
+    if(val('who'))L.push(`👤 Involucrado / residente: ${val('who')}`);
+    L.push(`📞 Celular: ${clientPhoneText||'No indicado'}`);
+    const sev=radio('sev'); L.push(`${sev==='Grave'?'🔴':sev==='Moderada'?'🟡':'🟢'} Gravedad: ${sev}`,`🛠️ Acción tomada: ${$('action').value}`);
+  }
+  L.push(`📝 Observaciones: ${val('detail')||'Sin observaciones'}`,`📷 Fotografías: ${photos().length} adjunta(s)`,`👮 Oficial: ${val('guard')}`,`📱 Celular: ${cfg.letter}${cfg.name?' ('+cfg.name+')':''}`,'',`*DDK - Su ALIANZA más segura*`);
+  return L.join('\n');
+}
 
 $('form').addEventListener('submit',e=>{
   e.preventDefault();
   if(!cfg.letter){alert('Primero configure la letra de este celular (⚙️).');return}
-  const status=document.querySelector('[name=status]:checked').value;
-  if(status!=='Sin anomalías'&&photos().length<2){alert('Cuando hay daños, debe agregar las dos fotografías.');return}
+  if(type==='vehicular'){
+    if(!plateTxt()){alert('Indique la placa del vehículo.');$('plate').focus();return}
+    if(radio('status')!=='Sin anomalías'&&photos().length<2){alert('Cuando hay daños, debe agregar las dos fotografías.');return}
+  }else if(radio('sev')==='Grave'&&!photos().length&&!confirm('La incidencia es GRAVE y no tiene fotografías. ¿Desea generar la boleta sin evidencia?'))return;
   const ph=phoneParts();
   if(ph.n){
-    if(!ph.cc){alert('Indique el código de país del cliente (ej. +506).');$('cc').focus();return}
+    if(!ph.cc){alert('Indique el código de país (ej. +506).');$('cc').focus();return}
     if(ph.cc==='506'&&ph.n.length!==8){alert('El número de celular de Costa Rica debe tener 8 dígitos.');$('phone').focus();return}
-    if(ph.n.length<7||ph.full.length>15){alert('Revise el número de celular del cliente.');$('phone').focus();return}
+    if(ph.n.length<7||ph.full.length>15){alert('Revise el número de celular.');$('phone').focus();return}
   }
   clientPhone=ph.n?ph.full:''; clientPhoneText=phoneText(ph.cc,ph.n);
   if(currentSerial===null){currentSerial=cfg.last+1;cfg.last=currentSerial;sset(K.cfg,cfg)}
-  report=`🟨 *DDK INTERNACIONAL SEGURIDAD*\n🚘 *BOLETA DE CONTROL VEHICULAR*\n🔢 *Boleta N.º ${serialText(currentSerial)}*\n\n📍 Puesto: ${$('site').value}\n📅 Fecha: ${fmtDate($('date').value)}\n🕒 Hora: ${$('time').value}\n🚗 Placa: ${$('plate').value.toUpperCase()}\n🚙 Marca / modelo: ${$('make').value||'No indicado'}\n🎨 Color: ${$('color').value||'No indicado'}\n🅿️ Ubicación: ${$('place').value}\n📞 Celular del cliente: ${clientPhoneText||'No indicado'}\n${status==='Sin anomalías'?'✅':'⚠️'} Estado: ${status}\n📝 Observaciones: ${$('detail').value||'Sin observaciones'}\n📷 Fotografías: ${photos().length} adjunta(s)\n👮 Oficial: ${$('guard').value}\n📱 Celular: ${cfg.letter}${cfg.name?' ('+cfg.name+')':''}\n\n*DDK - Su ALIANZA más segura*`;
+  report=buildReport();
   const h=sget(K.hist,[]); const i=h.findIndex(x=>x.serial===serialText(currentSerial));
-  const item={serial:serialText(currentSerial),plate:$('plate').value.toUpperCase(),date:fmtDate($('date').value)+' '+$('time').value,text:report,phone:clientPhone,phoneTxt:clientPhoneText};
+  const item={serial:serialText(currentSerial),type,ref:refText(),plate:type==='vehicular'?plateTxt():'',date:fmtDate($('date').value)+' '+$('time').value,text:report,phone:clientPhone,phoneTxt:clientPhoneText};
   if(i>=0)h[i]=item;else h.unshift(item); sset(K.hist,h.slice(0,100));
   $('preview').textContent=report; updateSendUI(); $('result').classList.remove('hidden'); refresh();
   $('result').scrollIntoView({behavior:'smooth'});
 });
 
-// Botones de envío según haya o no número del cliente
+// Botones de envío según haya o no número de destino
 function updateSendUI(){
   const hasPhone=!!clientPhone, nPh=photos().length;
   $('phoneBox').classList.toggle('hidden',!hasPhone);
-  $('phoneBox').innerHTML=hasPhone?`📞 Se enviará al WhatsApp del cliente: <b>${escapeHtml(clientPhoneText)}</b>`:'';
-  $('share').textContent=hasPhone?'📲 Enviar por WhatsApp al cliente':'📲 Enviar por WhatsApp';
+  $('phoneBox').innerHTML=hasPhone?`📞 Se enviará al WhatsApp: <b>${escapeHtml(clientPhoneText)}</b>`:'';
+  $('share').textContent=hasPhone?'📲 Enviar por WhatsApp al número indicado':'📲 Enviar por WhatsApp';
   $('sharePhotos').classList.toggle('hidden',!(hasPhone&&nPh));
   $('feedback').textContent=hasPhone
-    ?(nPh?'Al tocar «Enviar», se abre el chat de WhatsApp del cliente con la boleta escrita: solo toque enviar. Luego regrese aquí, toque «Paso 2: Enviar fotografías» y elija el mismo chat.'
-         :'Al tocar «Enviar», se abre el chat de WhatsApp del cliente con la boleta escrita: solo toque enviar.')
+    ?(nPh?'Al tocar «Enviar», se abre el chat de WhatsApp con la boleta escrita: solo toque enviar. Luego regrese aquí, toque «Paso 2: Enviar fotografías» y elija el mismo chat.'
+         :'Al tocar «Enviar», se abre el chat de WhatsApp con la boleta escrita: solo toque enviar.')
     :'Al tocar «Enviar por WhatsApp», elija WhatsApp y luego el chat o grupo de destino. Si las fotos no se adjuntan solas, use «Descargar fotografías» y envíelas en el mismo chat.';
 }
 
@@ -291,24 +459,25 @@ async function shareText(text,files){
 }
 $('share').onclick=async()=>{
   if(!report){alert('Genere la boleta primero.');return}
-  if(clientPhone){openWa(waUrl(clientPhone,report));return} // abre directo el chat del cliente con el texto listo
+  if(clientPhone){openWa(waUrl(clientPhone,report));return} // abre directo el chat con el texto listo
   const r=await shareText(report,namedPhotos());
   if(r==='textonly'){$('feedback').textContent='Se envió el texto. Toque «Paso 2: Enviar fotografías» o descárguelas y adjúntelas en el mismo chat de WhatsApp.';$('sharePhotos').classList.toggle('hidden',!photos().length)}
 };
 $('sharePhotos').onclick=async()=>{
   const fs=namedPhotos(); if(!fs.length){alert('Esta boleta no tiene fotografías.');return}
-  const cap='📷 Fotografías · Boleta '+serialText(currentSerial)+' · Placa '+$('plate').value.toUpperCase();
+  const cap='📷 Fotografías · Boleta '+serialText(currentSerial)+' · '+refText();
   if(navigator.share&&navigator.canShare&&navigator.canShare({files:fs})){
     try{await navigator.share({files:fs,text:cap});$('feedback').textContent='Fotografías enviadas. Puede iniciar una nueva boleta.';return}
     catch(e){if(e.name==='AbortError')return}
   }
-  alert('Este celular no permite compartir las fotos directamente. Use «Descargar fotografías» y adjúntelas en el chat de WhatsApp del cliente.');
+  alert('Este celular no permite compartir las fotos directamente. Use «Descargar fotografías» y adjúntelas en el chat de WhatsApp.');
 };
 $('copy').onclick=async()=>{try{await navigator.clipboard.writeText(report);$('feedback').textContent='Texto copiado. Péguelo en el chat de WhatsApp.'}catch(e){alert('Mantenga presionado el texto de la vista previa para copiarlo.')}};
 $('download').onclick=()=>{const fs=namedPhotos();if(!fs.length){alert('No hay fotos.');return}fs.forEach(f=>{const u=URL.createObjectURL(f),a=document.createElement('a');a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),20000)})};
 $('new').onclick=()=>{
   if(report&&!confirm('¿Ya envió la boleta '+serialText(currentSerial)+'? Se abrirá una boleta nueva.'))return;
   currentSerial=null;report='';photoFiles=[null,null];clientPhone='';clientPhoneText='';$('form').reset();now();if(cfg.guard)$('guard').value=cfg.guard;
+  setType(type); // se mantiene el último tipo usado
   [1,2].forEach(n=>{const img=$('img'+n);if(img.dataset.url)URL.revokeObjectURL(img.dataset.url);img.removeAttribute('src');img.classList.add('hidden');delete img.dataset.url});
   $('sharePhotos').classList.add('hidden');$('phoneBox').classList.add('hidden');
   $('result').classList.add('hidden');refresh();window.scrollTo({top:0,behavior:'smooth'});
@@ -329,9 +498,9 @@ $('cfgSave').onclick=()=>{const last=Math.max(0,parseInt($('lastNum').value||'0'
   if(cfg.guard&&!$('guard').value)$('guard').value=cfg.guard;
   $('settings').classList.add('hidden');refresh()};
 
-// Historial
+// Historial (las boletas viejas, solo vehiculares, no traen tipo: se muestran con su placa)
 $('openHist').onclick=()=>{const h=sget(K.hist,[]);
-  $('histList').innerHTML=h.length?h.map((x,i)=>`<div class="hist"><b>${escapeHtml(x.serial)}</b> · ${escapeHtml(x.plate)}<div class="meta">${escapeHtml(x.date)}${x.phoneTxt?' · 📞 '+escapeHtml(x.phoneTxt):''}</div><button class="btn outline small" data-i="${i}" type="button">${x.phone?'Reenviar texto al cliente':'Reenviar texto'}</button></div>`).join(''):'<p class="note">Aún no hay boletas en este celular.</p>';
+  $('histList').innerHTML=h.length?h.map((x,i)=>{const t=TYPES[x.type]||TYPES.vehicular;return `<div class="hist"><b>${t.icon} ${escapeHtml(x.serial)}</b> · ${escapeHtml(x.ref||x.plate||t.name)}<div class="meta">${escapeHtml(x.date)}${x.phoneTxt?' · 📞 '+escapeHtml(x.phoneTxt):''}</div><button class="btn outline small" data-i="${i}" type="button">${x.phone?'Reenviar texto al número':'Reenviar texto'}</button></div>`}).join(''):'<p class="note">Aún no hay boletas en este celular.</p>';
   $('history').classList.remove('hidden')};
 $('histList').onclick=e=>{const i=e.target.dataset.i;if(i===undefined)return;const it=sget(K.hist,[])[i];if(!it)return;if(it.phone)openWa(waUrl(it.phone,it.text));else shareText(it.text,[])};
 $('closeHist').onclick=()=>$('history').classList.add('hidden');
